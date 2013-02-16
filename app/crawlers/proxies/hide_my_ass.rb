@@ -1,0 +1,60 @@
+#encoding: utf-8
+require 'url_escaper'
+require 'net_utility'
+
+class HideMyAss
+
+  SOURCE_URL = "http://www.hidemyass.com/proxy-list/search-227751/%s"
+
+  def start
+    #(1..8).to_a.each do |i|
+    (1..8).to_a.each do |i|
+      #url = SOURCE_URL % [i, Time.now.to_i]
+      url = SOURCE_URL % i
+      STDOUT.puts url
+      page = NetUtility.mechanize_open_page url, (ENV['NO_PROXY'] ? false : true)
+      File.open('test.html', 'w') do |file|
+        file.write page
+      end
+      grab_proxies page
+    end
+  end
+
+  def grab_proxies page_obj
+    proxy_rows = page_obj.search "//table[@id='listtable']//tr"
+    proxy_rows.to_a[1..-1].each do |row|
+      parse_each_row row
+    end
+  end
+
+  def parse_each_row row
+    style = row.search("style").remove
+    visible, invisible = [], [] 
+    style.children.text.split.each do |css|
+      if css =~ /\.(.*)\{display\:(.*)\}$/
+        case $2.chomp.downcase
+          when "inline"
+            visible << $1
+          when "none"
+            invisible << $1
+        end
+      else
+        STDOUT.puts "== Not matched css : #{css} ==" 
+      end
+    end
+    tds = row.search('td').to_a
+    ip_node, port = tds[1], tds[2].text.strip 
+    ip_node.search("span[@style='display:none']").remove
+    ip_node.search("div[@style='display:none']").remove
+    invisible.each do |ivcs|
+      ip_node.search("*[@class='#{ivcs}']").remove 
+    end
+    ip = ip_node.text.strip
+    country = tds[3].text.strip
+    speed_str = tds[4].search("div//div")[0].attributes["style"].to_s
+    speed = $1.gsub(/['"]/,'').to_i if speed_str =~ /width\:(.*)%/
+    STDOUT.puts({ip: ip, port: port, speed: speed, provider: country})
+    HttpProxy.create({ip: ip, port: port, speed: speed, provider: country})
+  end
+
+end

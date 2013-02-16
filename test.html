@@ -1,0 +1,640 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<title>Free Proxy List - Public Proxy Servers (IP PORT) - Hide My Ass! - Custom search #227751</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="language" content="en">
+<link rel="stylesheet" type="text/css" href="//d1piupybsgr6dr.cloudfront.net/css/global.css">
+<link rel="stylesheet" type="text/css" href="//d1piupybsgr6dr.cloudfront.net/css/proxy-list.css">
+<link rel="icon" href="/favicon.ico" type="image/x-icon">
+<meta name="description" content="Free proxy list index; the largest real-time database of public proxy servers online.">
+<meta name="keywords" content="free proxy list, free proxy lists, web proxy lists, proxies, ip proxies, public proxy, public proxies, public proxy server">
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(
+	['_setAccount', 'UA-950416-6'],
+	['_setDomainName', 'hidemyass.com'],
+	['_addIgnoredRef', 'vpn.hidemyass.com'],
+	['_addIgnoredRef', 'blog.hidemyass.com'],
+	['_addIgnoredRef', 'forum.hidemyass.com'],
+	['_addIgnoredRef', '1.hidemyass.com'],
+	['_addIgnoredRef', '2.hidemyass.com'], 
+	['_addIgnoredRef', '3.hidemyass.com'],
+	['_addIgnoredRef', '4.hidemyass.com'],
+	['_addIgnoredRef', '5.hidemyass.com'],
+	['_addIgnoredRef', '6.hidemyass.com'],
+	['_addIgnoredRef', '7.hidemyass.com'], 
+	['_addIgnoredRef', 'affiliate.hidemyass.com'], 
+	['_trackPageview'],
+	['b._setAccount', 'UA-950416-55'],
+	['b._setDomainName', 'hidemyass.com'],
+	['b._addIgnoredRef', 'vpn.hidemyass.com'], 
+	['b._addIgnoredRef', 'blog.hidemyass.com'],
+	['b._addIgnoredRef', 'forum.hidemyass.com'],
+	['b._addIgnoredRef', '1.hidemyass.com'], 
+	['b._addIgnoredRef', '2.hidemyass.com'], 
+	['b._addIgnoredRef', '3.hidemyass.com'], 
+	['b._addIgnoredRef', '4.hidemyass.com'], 
+	['b._addIgnoredRef', '5.hidemyass.com'], 
+	['b._addIgnoredRef', '6.hidemyass.com'], 
+	['b._addIgnoredRef', '7.hidemyass.com'], 
+	['b._addIgnoredRef', 'affiliate.hidemyass.com'],
+	['b._trackPageview']
+);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script><script src="/proxy-list/assets/js/jquery-1.4.2.min.js" type="text/javascript"></script><script src="/proxy-list/assets/js/simplejax.js" type="text/javascript"></script><script src="/proxy-list/assets/js/tinysort.js" type="text/javascript"></script><script type="text/javascript">
+<!--
+var updateplInt = false;
+var tsLast = 0;
+var sortSelector = 0;
+var sortParams = 0;
+
+var updatepl = new simplejax('/proxy-list/xhr/update/search-227751/50', function(data)
+{
+   // If error, exit and kill refresh
+   if(data.error)
+   {
+      clearInterval(updateplInt);
+      return;
+   }
+
+   if(data.length == 0) return;
+
+   // Oust last *new* icons
+   if(data.entries.length > 0) $('.newproxy').removeClass('newproxy');
+
+   // Update timestamps we retrieve one from server
+   // so all follow same time
+   if(typeof(data.ts) != 'undefined')
+   {
+      tsLast = data.ts;
+      $('.timestamp').each(function() {
+         $(this).find('.updatets').each(function()
+         {
+            $(this).html(elapsed(tsLast - $(this).parent().attr('rel')));
+         });
+      });
+   }
+
+   for(var i = 0; i < data.entries.length; i++)
+   {
+      // Fade in new tr entry
+      $(data.entries[i]).fadeIn(i * 200).prependTo('#listtable');
+
+      // Remove no results if exists
+      $('#noresult').remove();
+
+      // Remove last entry if at table max
+//	alert ($('#listtable tr').size()+' vs '+parseInt($('#listtable').attr('rel')));
+      if($('#listtable tr').size() >= parseInt($('#listtable').attr('rel')))
+      {
+ //        alert($('#listtable tr:last').html());
+         $('#listtable tr:last').remove();
+      }
+   }
+
+   // Reorder table
+   if(sortSelector !== 0)
+   {
+      $('#listtable tr').tsort(sortSelector, sortParams);
+   }
+}, {'non-cached':true, 'json':true});
+
+function getSortBy()
+{
+   var sortBy = $('input[name="sortBy"]').val();
+   var orderBy = $('select[name="o"]').val();
+   orderBy = orderBy == '0' ? 'desc' : 'asc';
+
+   switch(sortBy)
+   {
+      case 'response_time':
+         sortSelector = '.response_time';
+         sortParams = {attr:'rel', order:orderBy};
+
+         return $('#listtable tr:last .response_time').attr('rel');
+      break;
+
+      case 'connection_time':
+         sortSelector = '.connection_time';
+         sortParams = {attr:'rel', order:orderBy};
+
+         return $('#listtable tr:last .connection_time').attr('rel');
+      break;
+
+      case 'country':
+         sortSelector = '.country';
+         sortParams = {attr:'rel', order:orderBy}
+
+         return $("#listtable tr:last .country").attr('rel');
+      break;
+
+      case 'date':
+         return '0';
+      break;
+   }
+
+   return '';
+}
+
+function startRefresh()
+{
+   updateplInt = setInterval(function()
+   {
+      updatepl.set('method', 'POST', 'q=' + getSortBy());
+      updatepl.invoke();
+   }, 30000);
+}
+
+function elapsed(remaining)
+{
+   var units = [1, 60, 3600];
+   units = units.reverse();
+   var unitNames = ['s', 'm', 'h'];
+   unitNames = unitNames.reverse();
+
+   var output = [];
+   for(unit in units)
+   {
+      if(remaining >= units[unit])
+      {
+         var quotient = Math.floor(remaining / units[unit]);
+         remaining = remaining % units[unit];
+//         output.push(quotient + ' ' + ((quotient == 1) ? unitNames[unit] : unitNames[unit] + 's'));
+         output.push(quotient + unitNames[unit]);
+      }
+   }
+
+   if(output.length > 2)
+      output.pop();
+
+   if(output.length > 1)
+   {
+      var last = output.pop();
+//      var finalstr = output.join(', ') + ' and ' + last;
+      var finalstr = output.join(', ') + ' ' + last;
+   }else
+      var finalstr = output.pop();
+
+   return finalstr;
+}
+
+
+$(document).ready(function()
+{
+   $('#country').click(function()
+   {
+      $('#allCountries').attr('checked', '');
+   });
+
+   $('#ports').click(function()
+   {
+      $('#allPorts').attr('checked', '');
+   });
+
+   $('#pauserefresh').click(function()
+   {
+	if($(this).hasClass("unpauserefresh")){
+		$(this).removeClass("unpauserefresh");
+	        startRefresh();
+	}else{
+		$(this).addClass("unpauserefresh");
+	        clearInterval(updateplInt);
+	}
+	return false;
+   });
+
+   $('#country-sort-count').click(function()
+   {
+      $('#country option').tsort({attr:'rel', order:'desc'});
+   });
+
+   $('#country-sort-name').click(function()
+   {
+      $('#country option').tsort();
+   });
+
+   $('#allCountries').change(function()
+   {
+      if($(this).is(':checked'))
+         $('#country option').attr('selected', 'selected');
+      else
+         $('#country option').attr('selected', '');
+   });
+
+   // Temporary
+   $('.submitbarrightcorner').click(function() { $('.proxyform').toggle(); });
+
+
+});
+-->
+</script>
+</head>
+<body>
+<div id="subpagebgtabs">
+
+	<div id="container">
+	
+		<div class="headersub headersubtab">
+
+			<h2><a href="/" title="Go to the home page">Hide My Ass!</a></h2>
+			
+			<div id="subnavcontainer">
+				<ul id="subnav">
+<li id="subnavleft"><a href="/">Home</a></li>				
+					<li><a href="http://blog.hidemyass.com/">Blog</a></li>					
+					<li><a href="http://forum.hidemyass.com/">Community</a></li>			
+					<li><a href="http://twitter.com/hidemyass/">Twitter</a></li>
+<li><a href="http://affiliate.hidemyass.com">Affiliate</a></li>
+<li><a href="/jobs/">Jobs</a></li>
+			<li><a href="/contact/">Contact</a></li>
+<li id="subnavlike"><div class="fb-like" data-href="http://facebook.com/hidemyasscom" data-send="false" data-layout="button_count" data-show-faces="false"></div></li>
+				</ul>
+</div>
+			<!-- End subnavcontainer -->
+			<ul id="mainnav">
+<li id="vpn"><a href="/vpn/">Pro VPN</a></li>
+				<li id="proxy"><a href="/proxy/">Web proxy </a></li>
+				<li id="proxylist"><a href="/proxy-list/">Proxy list</a></li>
+				<li id="mail"><a href="/anonymous-email/">Anonymous email</a></li>
+				<li id="software"><a href="/software/">Privacy software</a></li>
+				<li id="upload"><a href="/upload/">File upload</a></li>
+				<li id="referrer"><a href="/anonymous-referrer/">Anonymous referrer</a></li>
+			</ul>
+<div class="subheading subheadingproxylist">
+			
+				<h1>Free proxy lists (IP:PORT)</h1>
+				<p>Real-time auto-updatable database of free working IP:PORT proxies</p>
+				<ul>
+<li><span>Free proxy list</span></li>
+					<li class="inactivetab"><a href="/proxy-list/premium/">Premium lists</a></li>
+				</ul>
+</div>
+			<!-- End subheading -->
+		
+		</div>
+		<!-- End header -->
+		<div id="proxylisttopleft">
+			<h2 class="translation enh2mainheader">The largest real-time database of  free working public proxies</h2>
+			<p>Public proxy servers can be used with any application that supports the use of proxies (e.g. web browsers). They provide an easy way to mask your true IP address and enable you to surf anonymously online.</p>
+			<p>Our proxy lists are checked in real-time with up to the minute auto-updatable results 24/7. Since proxies are checked continually all day you can be sure to find a reliable database of working proxies that have worked within the last 24hrs.</p>
+		</div>
+		
+		<!-- End proxylisttopleft -->
+		
+		<div id="premiumpromo">
+			<div class="translation enforlife">
+				<h3 class="translation enh3gopremium">Go premium</h3>
+				<p>Get our proxy list database sent to your inbox every day in raw .txt format.</p>
+				<span><a href="/proxy-list/premium/">Learn more about premium lists</a></span>	
+			</div>
+			<!-- End enforlife -->
+			<div id="premiumpromobottom"></div>
+		</div>
+		<!-- End premiumpromo -->
+		
+		<form action="" method="post">
+			<div id="formbox">
+				<div id="formboxwrapper">
+				<ul class="proxyform">
+<li>
+						<fieldset>
+<legend><span>Proxy country</span></legend>
+							<label><input type="checkbox" id="allCountries" name="ac" checked> All countries</label>
+							<select id="country" name="c[]" class="selectmultiple" multiple><option rel="594" value="China" selected>China (594)</option>
+<option rel="274" value="Brazil" selected>Brazil (274)</option>
+<option rel="204" value="Indonesia" selected>Indonesia (204)</option>
+<option rel="175" value="Venezuela" selected>Venezuela (175)</option>
+<option rel="100" value="United States" selected>United States (100)</option>
+<option rel="97" value="Russian Federation" selected>Russian Federation (97)</option>
+<option rel="57" value="Kazakhstan" selected>Kazakhstan (57)</option>
+<option rel="53" value="Thailand" selected>Thailand (53)</option>
+<option rel="52" value="Colombia" selected>Colombia (52)</option>
+<option rel="41" value="Iran" selected>Iran (41)</option>
+<option rel="32" value="India" selected>India (32)</option>
+<option rel="31" value="Ukraine" selected>Ukraine (31)</option>
+<option rel="27" value="Ecuador" selected>Ecuador (27)</option>
+<option rel="27" value="Chile" selected>Chile (27)</option>
+<option rel="27" value="Peru" selected>Peru (27)</option>
+<option rel="23" value="Poland" selected>Poland (23)</option>
+<option rel="21" value="Hong Kong" selected>Hong Kong (21)</option>
+<option rel="20" value="Egypt" selected>Egypt (20)</option>
+<option rel="19" value="Nigeria" selected>Nigeria (19)</option>
+<option rel="18" value="Korea, Republic of" selected>Korea, Republic of (18)</option>
+<option rel="14" value="Cambodia" selected>Cambodia (14)</option>
+<option rel="13" value="Turkey" selected>Turkey (13)</option>
+<option rel="13" value="France" selected>France (13)</option>
+<option rel="13" value="Pakistan" selected>Pakistan (13)</option>
+<option rel="13" value="Argentina" selected>Argentina (13)</option>
+<option rel="12" value="Czech Republic" selected>Czech Republic (12)</option>
+<option rel="11" value="Bangladesh" selected>Bangladesh (11)</option>
+<option rel="11" value="Malaysia" selected>Malaysia (11)</option>
+<option rel="11" value="Iraq" selected>Iraq (11)</option>
+<option rel="11" value="Ghana" selected>Ghana (11)</option>
+<option rel="11" value="Taiwan" selected>Taiwan (11)</option>
+<option rel="11" value="Taiwan" selected>Taiwan (11)</option>
+<option rel="10" value="Bulgaria" selected>Bulgaria (10)</option>
+<option rel="9" value="United Arab Emirates" selected>United Arab Emirates (9)</option>
+<option rel="9" value="Philippines" selected>Philippines (9)</option>
+<option rel="9" value="Germany" selected>Germany (9)</option>
+<option rel="8" value="Kenya" selected>Kenya (8)</option>
+<option rel="8" value="Netherlands" selected>Netherlands (8)</option>
+<option rel="7" value="Serbia" selected>Serbia (7)</option>
+<option rel="7" value="Mexico" selected>Mexico (7)</option>
+<option rel="7" value="Uzbekistan" selected>Uzbekistan (7)</option>
+<option rel="7" value="Hungary" selected>Hungary (7)</option>
+<option rel="6" value="Romania" selected>Romania (6)</option>
+<option rel="6" value="Mongolia" selected>Mongolia (6)</option>
+<option rel="6" value="Luxembourg" selected>Luxembourg (6)</option>
+<option rel="5" value="Saudi Arabia" selected>Saudi Arabia (5)</option>
+<option rel="5" value="Honduras" selected>Honduras (5)</option>
+<option rel="5" value="Slovakia" selected>Slovakia (5)</option>
+<option rel="4" value="Japan" selected>Japan (4)</option>
+<option rel="4" value="Italy" selected>Italy (4)</option>
+<option rel="4" value="Australia" selected>Australia (4)</option>
+<option rel="4" value="Moldova, Republic of" selected>Moldova, Republic of (4)</option>
+<option rel="3" value="Spain" selected>Spain (3)</option>
+<option rel="3" value="Algeria" selected>Algeria (3)</option>
+<option rel="3" value="United Kingdom" selected>United Kingdom (3)</option>
+<option rel="3" value="Albania" selected>Albania (3)</option>
+<option rel="3" value="Latvia" selected>Latvia (3)</option>
+<option rel="3" value="Paraguay" selected>Paraguay (3)</option>
+<option rel="3" value="Nepal" selected>Nepal (3)</option>
+<option rel="3" value="Canada" selected>Canada (3)</option>
+<option rel="3" value="Viet Nam" selected>Viet Nam (3)</option>
+<option rel="2" value="Qatar" selected>Qatar (2)</option>
+<option rel="2" value="Europe" selected>Europe (2)</option>
+<option rel="2" value="Tanzania, United Republic of" selected>Tanzania, United Republic of (2)</option>
+<option rel="2" value="Brunei Darussalam" selected>Brunei Darussalam (2)</option>
+<option rel="2" value="Afghanistan" selected>Afghanistan (2)</option>
+<option rel="2" value="Armenia" selected>Armenia (2)</option>
+<option rel="2" value="Bolivia" selected>Bolivia (2)</option>
+<option rel="2" value="Lebanon" selected>Lebanon (2)</option>
+<option rel="2" value="Israel" selected>Israel (2)</option>
+<option rel="2" value="Singapore" selected>Singapore (2)</option>
+<option rel="2" value="Ireland" selected>Ireland (2)</option>
+<option rel="2" value="Croatia" selected>Croatia (2)</option>
+<option rel="2" value="Denmark" selected>Denmark (2)</option>
+<option rel="2" value="Georgia" selected>Georgia (2)</option>
+<option rel="1" value="Kyrgyzstan" selected>Kyrgyzstan (1)</option>
+<option rel="1" value="Norway" selected>Norway (1)</option>
+<option rel="1" value="Zambia" selected>Zambia (1)</option>
+<option rel="1" value="Panama" selected>Panama (1)</option>
+<option rel="1" value="Palestinian Territory, Occupied" selected>Palestinian Territory, Occupied (1)</option>
+<option rel="1" value="Lithuania" selected>Lithuania (1)</option>
+<option rel="1" value="Dominican Republic" selected>Dominican Republic (1)</option>
+<option rel="1" value="Zaire" selected>Zaire (1)</option>
+<option rel="1" value="Zimbabwe" selected>Zimbabwe (1)</option>
+<option rel="1" value="Macedonia" selected>Macedonia (1)</option>
+<option rel="1" value="Sudan" selected>Sudan (1)</option>
+<option rel="1" value="Botswana" selected>Botswana (1)</option>
+<option rel="1" value="Azerbaijan" selected>Azerbaijan (1)</option>
+<option rel="1" value="Jordan" selected>Jordan (1)</option>
+<option rel="1" value="Cameroon" selected>Cameroon (1)</option>
+<option rel="1" value="Benin" selected>Benin (1)</option>
+<option rel="1" value="Cote D'Ivoire" selected>Cote D'Ivoire (1)</option>
+<option rel="1" value="Costa Rica" selected>Costa Rica (1)</option>
+<option rel="1" value="Finland" selected>Finland (1)</option>
+<option rel="1" value="Jamaica" selected>Jamaica (1)</option>
+<option rel="1" value="Oman" selected>Oman (1)</option></select><small id="listsort"><a href="javascript:void(0)" id="country-sort-count">Sort by count</a> | <a href="javascript:void(0)" id="country-sort-name">Sort by name</a></small>
+						</fieldset>
+</li>
+					<li>
+						<fieldset>
+<legend>Port(s)</legend>
+								<label><input type="checkbox" id="allPorts" checked> All ports</label>
+								<input type="text" name="p" id="ports" value="80" class="textinput"><small><strong>TIP:</strong> Enter specific ports in the<br>above box. Separate more than<br>one port by a comma (8080, 80,<br> 443 ...). A maximum of 20 ports<br>allowed.</small>
+						</fieldset>
+</li>
+					<li>
+						<fieldset>
+<legend><span>Protocol</span></legend>
+<label><input type="checkbox" name="pr[]" value="0" checked>HTTP</label><label><input type="checkbox" name="pr[]" value="1" checked>HTTPS</label><label><input type="checkbox" name="pr[]" value="2" checked>socks4/5</label>						
+						</fieldset>
+</li>	
+					<li>
+						<fieldset>
+<legend><span>Anonymity level</span></legend>
+<label><input type="checkbox" name="a[]" value="0" checked>None</label><label><input type="checkbox" name="a[]" value="1" checked>Low</label><label><input type="checkbox" name="a[]" value="2" checked>Medium</label><label><input type="checkbox" name="a[]" value="3" checked>High</label><label><input type="checkbox" name="a[]" value="4" checked>High +KA</label>							
+						</fieldset>
+<fieldset class="extrapadding">
+<legend><span>PlanetLab</span></legend>
+							<label><input type="checkbox" name="pl" checked> Include</label>
+						</fieldset>
+</li>		
+					<li id="norightborder">
+						<fieldset>
+<legend><span>Speed</span></legend>
+<label><input type="checkbox" name="sp[]" value="1" checked>Slow</label><label><input type="checkbox" name="sp[]" value="2" checked>Medium</label><label><input type="checkbox" name="sp[]" value="3" checked>Fast</label>						</fieldset>
+<fieldset class="extrapadding">
+<legend><span>Connection time</span></legend>
+<label><input type="checkbox" name="ct[]" value="1" checked>Slow</label><label><input type="checkbox" name="ct[]" value="2" checked>Medium</label><label><input type="checkbox" name="ct[]" value="3" checked>Fast</label>						</fieldset>
+</li>
+				</ul>
+<div id="submitbar">
+<div id="submitbarsecondborder">
+					<ul id="sortform">
+<li>
+							<label>Sort by</label>
+<select name="s"><option value="0" selected>Date tested</option>
+<option value="1">Response time</option>
+<option value="2">Connection time</option>
+<option value="3">Country A-Z</option></select>
+</li>
+						<li>
+<select name="o"><option value="0" selected>DESC</option>
+<option value="1">ASC</option></select>
+</li>
+						<li>
+<select name="pp"><option value="0"> per page10</option>
+<option value="1"> per page25</option>
+<option value="2" selected> per page50</option>
+<option value="3"> per page100</option></select>
+</li>
+					</ul>
+<ul id="submitbuttons">
+<li><input type="submit" id="updateresults" value="Update results"></li>					
+					</ul>
+</div>			
+	</div>
+				<!-- End submitbar -->
+				
+				</div>
+				<!-- End formboxwrapper -->
+			</div>
+			<input type="hidden" name="sortBy" value="date"><!-- End formbox -->
+</form>
+<div id="searchboxheader"></div>
+<div id="searchbox">
+<h3>Custom search #227751</h3>
+<ul>
+<li>
+<strong>Country:</strong> all</li>
+<li>
+<strong>Port:</strong> 80</li>
+<li>
+<strong>Protocol:</strong> HTTP, HTTPS and socks4/5</li>
+<li>
+<strong>Anonymity level:</strong> None, Low, Medium, High and High +KA</li>
+<li>
+<strong>PlanetLab/CoDeeN:</strong> YES</li>
+<li>
+<strong>Speed:</strong> </li>
+<li>
+<strong>Connection time:</strong> </li>
+<li>
+<strong>Sorted by:</strong> Date tested descending</li>
+</ul>
+</div>
+<div id="searchboxfooter"></div>
+		
+		<table id="listtable" cellpadding="0" cellspacing="0" rel="50"><thead><tr id="theader">
+<td id="theaderleft">Last update</td>
+				<td>IP address</td>
+				<td>Port</td>
+				<td>Country</td>
+				<td>Speed</td>
+				<td>Connection time</td>
+				<td>Type</td>
+				<td id="theaderright">Anonymity</td>
+			</tr></thead></table>
+<div id="pagination">
+			<ul>
+<div class="pagination">
+<li class="previouspageactive"><a href="/proxy-list/search-227751/7" class="prev">« Previous</a></li>
+<li><a href="/proxy-list/search-227751/1">1</a></li>
+<li><a href="/proxy-list/search-227751/2">2</a></li>
+<li><a href="/proxy-list/search-227751/3">3</a></li>
+<li><a href="/proxy-list/search-227751/4">4</a></li>
+<li><a href="/proxy-list/search-227751/5">5</a></li>
+<li><a href="/proxy-list/search-227751/6">6</a></li>
+<li class="inactivepagination nextpageinactive">Next »</li>
+</div>
+			</ul>
+</div>
+		<!-- End pagination -->
+		
+		<div id="instructions">
+			<div id="instructionswrapper">
+				<h3>Proxy list instructions and notes</h3>
+				<h4>Web browser instructions</h4>
+				<ul>
+<li>
+<strong>Mozilla Firefox:</strong> Tools &gt; Options &gt; Advanced &gt; Settings &gt; Manual proxy configuration.</li>
+					<li>
+<strong>Google Chrome:</strong> Options &gt; Under the hood &gt; Network &gt; Change proxy settings &gt; LAN settings &gt; Use a proxy server &gt; Advanced &gt; HTTP.</li>
+					<li>
+<strong>Internet Explorer:</strong> Tools &gt; Internet options &gt; Connections &gt; LAN settings &gt; Use a proxy server &gt; Advanced &gt; HTTP.</li>
+					<li>
+<strong>Opera:</strong> Tools &gt; Preferences &gt; Advanced &gt; Network.</li>
+				</ul>
+<h4>Anonymity levels</h4>
+				<ul>
+<li>
+<strong>Level 1:</strong> No anonymity; remote host knows your IP and knows you are using proxy.</li>
+					<li>
+<strong>Level 4:</strong> Low anonymity; remote host does not know your IP, but it knows you are using proxy.</li>
+					<li>
+<strong>Level 8:</strong> Medium anonymity; remote host knows you are using proxy, and thinks it knows your IP, but this is not yours (this is usually a multihomed proxy which shows its inbound interface as REMOTE_ADDR for a target host).</li>
+					<li>
+<strong>Level 16:</strong> High anonymity; remote host does not know your IP and has no direct proof of proxy usage (proxy-connection family header strings). If such hosts do not send additional header strings it may be considered as high-anonymous. If a high-anonymous proxy supports keep-alive you can consider it to be extremely-anonymous. However, such a host is highly possible to be a honey-pot.</li>
+				</ul>
+<h4>Planet Lab / CoDeeN</h4>
+				<p>PlanetLab proxy servers marked with <span id="plicon">a</span> icon are from the Planetlab CoDeeN (CDN) Project, a network of educational Internet nodes at Princeton University. These proxies may force a captcha and allocate you a different IP address as advertised.</p>
+				<h4>Security notes</h4>
+				<p>Our proxy list database consists of third-party 'open proxies'; proxy servers set up for public use. We have absolutely NO control over any of these proxy servers and can not vouch for security, therefore USE OUR DATABASE AT YOUR OWN RISK. For a guaranteed secured encrypted connection, private servers in our control, reliable fast speeds and multiple servers world-wide we recommend you use our <a href="/vpn/">VPN service</a>.</p>
+			</div>
+			<!-- End instructionswrapper -->
+		</div>
+		<!-- End instructions -->
+<div id="instructionsbottom"></div>		
+	</div>
+	<!-- End container -->
+	
+	<div id="footer">
+		<div id="footercontainer">
+			<ul id="footermenu">
+<li id="adjustedleftpadding">
+					<ul>
+<li><h3>Latest blog posts</h3></li>
+
+    <li>
+<a href="http://blog.hidemyass.com/2013/02/15/news-roundup-congress-threatening-online-privacy-again-cost-of-cyber-crime-revealed-and-password-security-still-weak/">News Roundup: Congress th...</a><br><em>15th Feb 2013</em>
+</li>
+<li>
+<a href="http://blog.hidemyass.com/2013/02/13/hacked-off-zombie-apocalypse-cancelled-in-montana/">Hacked off: zombie apocal...</a><br><em>13th Feb 2013</em>
+</li>
+<li>
+<a href="http://blog.hidemyass.com/2013/02/11/even-ex-presidents-arent-safe-hacker-exposes-bush-emails/">Even ex-presidents aren't...</a><br><em>11th Feb 2013</em>
+</li>
+<li>
+<a href="http://blog.hidemyass.com/2013/02/11/hma-weekly-tip-how-can-i-force-my-computer-to-only-use-the-vpn-ip-and-not-to-transfer-data-with-my-real-ip/">HMA Weekly Tip: How can I...</a><br><em>11th Feb 2013</em>
+</li>					</ul>
+</li>
+				<li>
+					<ul>
+<li><h3>Latest community topics</h3></li>
+
+						<li>
+<a href="http://forum.hidemyass.com/index.php?/topic/11865-cannot-connect-to-hma">CANNOT CONNECT TO HMA!...</a><br><em>16th Feb 2013</em>
+</li>
+						<li>
+<a href="http://forum.hidemyass.com/index.php?/topic/11864-how-do-i-create-a-custom-server-list">How do I create a custom ...</a><br><em>15th Feb 2013</em>
+</li>
+						<li>
+<a href="http://forum.hidemyass.com/index.php?/topic/11863-2-routers-in-series-only-have-ip-and-pass-for-1">2 Routers in Series (only...</a><br><em>15th Feb 2013</em>
+</li>
+						<li>
+<a href="http://forum.hidemyass.com/index.php?/topic/11862-hma-searches-reveal-my-ip-not-anonymous-fix">HMA searches reveal my IP...</a><br><em>15th Feb 2013</em>
+</li>					</ul>
+</li>
+				<li id="footersitemap">
+					<ul>
+<li id="adjustedbottompadding"><h3>Hide My Ass!</h3></li>
+						<li><a href="/vpn/">Pro VPN</a></li>
+						<li><a href="/proxy/">Free web proxy</a></li>
+						<li><a href="/proxy-list/">IP:PORT proxies</a></li>
+						<li><a href="/anonymous-email/">Anonymous Email</a></li>
+						<li><a href="/software/">Privacy software</a></li>
+						<li><a href="/upload/">File upload</a></li>
+						<li><a href="/anonymous-referrer/">Anonymous Referrer</a></li>
+					</ul>
+</li>				
+			</ul>
+<div id="footerbottom">
+				<small>Copyright 2005-2012 Privax LTD. All Rights reserved.</small>
+				<ul>
+<li><a href="http://forum.hidemyass.com/">Community</a></li>
+					<li><a href="http://blog.hidemyass.com/">Blog</a></li>
+					<li><a href="http://twitter.com/hidemyass/">Twitter</a></li>
+<li><a href="/jobs/">Jobs</a></li>					
+<li><a href="https://affiliate.hidemyass.com">Affiliate</a></li>
+<li><a href="/contact/">Contact</a></li>
+<li><a href="/legal/">Legal</a></li>
+					<li id="footerbottompaddingadjustment"><a href="/site-map/">Site map</a></li>
+				</ul>
+</div>
+			<!-- End footerbottom -->		
+		</div>
+		<!-- End footercontainer -->	
+	</div>
+	<!-- End footercontainer -->
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+</div>
+<!-- End homebg -->
+</body>
+</html>
