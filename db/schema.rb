@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130206081217) do
+ActiveRecord::Schema.define(:version => 20130222104501) do
 
   create_table "activities", :force => true do |t|
     t.integer  "trackable_id"
@@ -36,12 +36,12 @@ ActiveRecord::Schema.define(:version => 20130206081217) do
     t.string   "ip"
     t.integer  "port"
     t.integer  "speed",        :default => 50
-    t.boolean  "available",    :default => true
+    t.boolean  "available",    :default => false
     t.integer  "country"
     t.datetime "last_used_at"
     t.datetime "verified_at"
-    t.datetime "created_at",                     :null => false
-    t.datetime "updated_at",                     :null => false
+    t.datetime "created_at",                      :null => false
+    t.datetime "updated_at",                      :null => false
   end
 
   add_index "http_proxies", ["ip", "port"], :name => "ip_port_uniq_idx"
@@ -53,6 +53,15 @@ ActiveRecord::Schema.define(:version => 20130206081217) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
+
+  create_table "proxy_sources", :force => true do |t|
+    t.string   "url"
+    t.integer  "source"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "proxy_sources", ["url"], :name => "url_idx", :unique => true
 
   create_table "stock_quotes", :force => true do |t|
     t.string   "symbol",                          :limit => 10

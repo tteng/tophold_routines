@@ -4,7 +4,12 @@ require 'net_utility'
 
 class HideMyAss
 
-  SOURCE_URL = "http://www.hidemyass.com/proxy-list/search-227751/%s"
+  SOURCE_URL = [
+                 "http://www.hidemyass.com/proxy-list/search-227751/%s", 
+                 "http://www.hidemyass.com/proxy-list/search-265642/%s",
+                 "http://www.hidemyass.com/proxy-list/search-237916/%s",
+               ]
+              
 
   def start
     #(1..8).to_a.each do |i|
