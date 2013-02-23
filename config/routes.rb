@@ -1,4 +1,8 @@
 TopholdRoutines::Application.routes.draw do
+
+  root :to => 'proxy_sources#index'
+
+  resources :proxy_sources
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

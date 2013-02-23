@@ -1,0 +1,21 @@
+<%= form_for(@proxy_source) do |f| %>
+  <% if @proxy_source.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@proxy_source.errors.count, "error") %> prohibited this proxy_source from being saved:</h2>
+
+      <ul>
+      <% @proxy_source.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :url %><br />
+    <%= f.text_field :url %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

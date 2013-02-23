@@ -4,23 +4,11 @@ require 'net_utility'
 
 class HideMyAss
 
-  SOURCE_URL = [
-                 "http://www.hidemyass.com/proxy-list/search-227751/%s", 
-                 "http://www.hidemyass.com/proxy-list/search-265642/%s",
-                 "http://www.hidemyass.com/proxy-list/search-237916/%s",
-               ]
-              
-
-  def start
-    #(1..8).to_a.each do |i|
+  def process url
     (1..8).to_a.each do |i|
-      #url = SOURCE_URL % [i, Time.now.to_i]
-      url = SOURCE_URL % i
+      url = url % i
       STDOUT.puts url
       page = NetUtility.mechanize_open_page url, (ENV['NO_PROXY'] ? false : true)
-      File.open('test.html', 'w') do |file|
-        file.write page
-      end
       grab_proxies page
     end
   end
@@ -48,6 +36,7 @@ class HideMyAss
       end
     end
     tds = row.search('td').to_a
+    return if tds.blank? || tds[1].blank? || tds[2].blank?
     ip_node, port = tds[1], tds[2].text.strip 
     ip_node.search("span[@style='display:none']").remove
     ip_node.search("div[@style='display:none']").remove

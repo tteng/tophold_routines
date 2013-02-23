@@ -1,0 +1,23 @@
+<h1>Listing proxy_sources</h1>
+
+<table>
+  <tr>
+    <th>Url</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @proxy_sources.each do |proxy_source| %>
+  <tr>
+    <td><%= proxy_source.url %></td>
+    <td><%= link_to 'Show', proxy_source %></td>
+    <td><%= link_to 'Edit', edit_proxy_source_path(proxy_source) %></td>
+    <td><%= link_to 'Destroy', proxy_source, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Proxy source', new_proxy_source_path %>
