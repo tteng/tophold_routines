@@ -24,7 +24,6 @@ class VpnGeeks
 
   def parse_each_row row
     children = row.children
-    proxy_type = STDOUT.puts children[8].text
     return unless proxy_type =~ /http/i
     ip, port, country = children[0].text, children[1].text, children[2].text
     speed = children[6].inner_html =~ /width\:(.*)%/ ? $1.gsub(/['"]/,'').to_i : 50
