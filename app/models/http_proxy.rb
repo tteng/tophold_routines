@@ -5,6 +5,7 @@ class HttpProxy < ActiveRecord::Base
 
   SourceCountry = Hash.new(2)
   SourceCountry["china"] = 0
+  SourceCountry["cn"] = 0
   SourceCountry["united states"] = 1
   SourceCountry["america"] = 1
   SourceCountry["us"] = 1
