@@ -15,7 +15,6 @@ class Aliveproxy
 
   def grab_proxies page_obj
     proxy_rows = page_obj.search "//table[@class='cm or']//tr"
-    p proxy_rows.size
     proxy_rows.to_a[1..-1].each do |row|
       parse_each_row row
     end
@@ -26,8 +25,6 @@ class Aliveproxy
     ip_string = children[0].inner_html
     ip, port = ip_string.split('<')[0].split ':'
     country = children[1].text.chomp
-    STDOUT.puts ip_string
-    STDOUT.puts port
     STDOUT.puts({ip: ip, port: port, speed: 50, provider: country})
     HttpProxy.create({ip: ip, port: port, speed: 50, provider: country})
   end
