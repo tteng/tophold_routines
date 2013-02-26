@@ -10,8 +10,8 @@ class HttpProxy < ActiveRecord::Base
   SourceCountry["america"] = 1
   SourceCountry["us"] = 1
 
-  def provider= (country="")
-    self.country = SourceCountry[country.chomp.downcase]
+  def provider= country
+    self.country = SourceCountry[(country || '').chomp.downcase]
   end
 
   IP_REGEXP = /^([1-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])(\.([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])){3}$/

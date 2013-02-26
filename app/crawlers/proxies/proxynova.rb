@@ -44,7 +44,7 @@ class Proxynova
     else
       return
     end
-    port, country =  children[1].text.strip, children[5].text.split('-')[0].chomp
+    port, country =  children[1].text.strip, (children[5].text.split('-')[0].chomp rescue nil)
     speed = children[3].inner_html =~ /data-percent=(.*)/ ? $1.gsub(/['"]/,'').to_i : 50
     STDOUT.puts({ip: ip, port: port, speed: speed, provider: country})
     HttpProxy.create({ip: ip, port: port, speed: speed, provider: country})

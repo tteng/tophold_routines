@@ -4,11 +4,21 @@ require 'net_utility'
 
 class HideMyAss
 
+  BIG_COLLECTION_URLS = ["search-225695"]
+
   def process url
-    (1..8).to_a.each do |i|
-      url = url % i
-      STDOUT.puts url
-      page = NetUtility.mechanize_open_page url, (ENV['NO_PROXY'] ? false : true)
+    range = nil
+    BIG_COLLECTION_URLS.each do |ul|
+      if url.include? ul
+        range = 1..42
+        break 
+      end
+    end
+    range ||= 1..8 
+    range.to_a.each do |i|
+      dest_url = url % i
+      STDOUT.puts dest_url
+      page = NetUtility.mechanize_open_page dest_url, (ENV['NO_PROXY'] ? false : true)
       grab_proxies page
     end
   end
