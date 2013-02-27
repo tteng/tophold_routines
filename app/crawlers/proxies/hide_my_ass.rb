@@ -35,7 +35,7 @@ class HideMyAss
     visible, invisible = [], [] 
     style.children.text.split.each do |css|
       if css =~ /\.(.*)\{display\:(.*)\}$/
-        case $2.chomp.downcase
+        case $2.strip.downcase
           when "inline"
             visible << $1
           when "none"

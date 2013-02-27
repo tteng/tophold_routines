@@ -15,6 +15,8 @@ class ProxyAssignee
             Proxynova
           when /ip-address\.com/i
             IpAddress
+          when /xroxy\.com/
+            Xroxy
           else
             nil
       end

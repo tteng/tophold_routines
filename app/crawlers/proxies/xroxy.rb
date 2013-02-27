@@ -2,11 +2,11 @@
 require 'url_escaper'
 require 'net_utility'
 
-class Aliveproxy 
+class Xroxy
 
   def process source_url
-    #http://www.aliveproxy.com/proxy-list-port-%d/
-    [80, 81, 3128, 8000, 8080].each do |i|
+    #http://www.xroxy.com/proxylist.php?port=&type=All_http&ssl=&country=&latency=&reliability=&sort=reliability&desc=true&pnum=%d/
+    (1..315).to_a.each do |i|
       STDOUT.puts source_url % i
       page = NetUtility.mechanize_open_page source_url % i, (ENV['NO_GFW_PROXY'] ? false : true)
       grab_proxies page
@@ -14,17 +14,16 @@ class Aliveproxy
   end
 
   def grab_proxies page_obj
-    proxy_rows = page_obj.search "//table[@class='cm or']//tr"
-    proxy_rows.to_a[1..-1].each do |row|
+    proxy_rows = page_obj.search "//tr[@class='row0' or @class='row1']"
+    proxy_rows.to_a.each do |row|
       parse_each_row row
     end
   end
 
   def parse_each_row row
-    children = row.children
-    ip_string = children[0].inner_html
-    ip, port = ip_string.split('<')[0].split ':'
-    country = children[1].text.strip
+    children = row.search("td").to_a
+    ip, port = children[1].text.strip, children[2].text.strip
+    country = children[5].text.strip.strip
     STDOUT.puts({ip: ip, port: port, speed: 50, provider: country})
     HttpProxy.create({ip: ip, port: port, speed: 50, provider: country})
   end
