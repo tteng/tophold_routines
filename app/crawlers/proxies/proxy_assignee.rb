@@ -13,6 +13,8 @@ class ProxyAssignee
             Aliveproxy
           when /proxynova\.com/i
             Proxynova
+          when /ip-address\.com/i
+            IpAddress
           else
             nil
       end
