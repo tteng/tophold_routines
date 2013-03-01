@@ -17,6 +17,14 @@ class ProxyAssignee
             IpAddress
           when /xroxy\.com/i
             Xroxy
+          when /workingproxies\.com/i
+            Workingproxies
+          when /proxyserver\.com/i
+            Proxyserver
+          when /valid-proxy\.com/i
+            Validproxy
+          when /samair\.ru/i
+            Samair 
           when /freeproxylists\.net/i
             #Freeproxylists
           else
@@ -25,5 +33,7 @@ class ProxyAssignee
       handler.new.process ps.url unless handler.blank?
     end
   end
+
+  #http://www.proxz.com/
 
 end
