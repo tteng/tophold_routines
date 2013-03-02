@@ -5,9 +5,9 @@ require 'net_utility'
 class VpnGeeks
 
   def process source_url
-    #http://www.vpngeeks.com/proxylist.php?from=%d&#pagination
+    #http://www.vpngeeks.com/proxylist.php?from=%d
     (0..55).to_a.each do |i|
-      url = source_url % (i * 50).succ
+      url = (source_url % (i * 50).succ)+"&country=0&port=&speed%5B%5D=1&speed%5B%5D=2&speed%5B%5D=3&anon%5B%5D=1&anon%5B%5D=2&anon%5B%5D=3&type%5B%5D=1&type%5B%5D=2&type%5B%5D=3&conn%5B%5D=1&conn%5B%5D=2&conn%5B%5D=3&sort=1&order=1&rows=50&search=Find"
       STDOUT.puts url
       page = NetUtility.mechanize_open_page url, (ENV['NO_GFW_PROXY'] ? false : true)
       grab_proxies page

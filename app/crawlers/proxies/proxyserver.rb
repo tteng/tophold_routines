@@ -9,7 +9,7 @@ class Proxyserver
     (1..45).to_a.each do |i|
       dest_url = url % i
       STDOUT.puts dest_url
-      page = NetUtility.mechanize_open_page dest_url, (ENV['NO_PROXY'] ? false : true)
+      page = NetUtility.mechanize_open_page dest_url, (ENV['NO_GFW_PROXY'] ? false : true)
       grab_proxies page
     end
   end
