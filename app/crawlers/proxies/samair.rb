@@ -23,7 +23,7 @@ class Samair
 
   def parse_each_row row
     children = row.split
-    ip_str, country = children[0], children[4..-1].join(' ')
+    ip_str, country = children[0], (children[4..-1].join(' ') rescue '')
     ip,port = ip_str.split ':' 
     STDOUT.puts({ip: ip, port: port, speed: 50, provider: country})
     HttpProxy.create({ip: ip, port: port, speed: 50, provider: country})
