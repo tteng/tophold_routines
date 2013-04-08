@@ -46,3 +46,17 @@ gem 'therubyracer', :require => 'v8'
 # gem 'debugger'
 
 gem 'whenever'
+
+gem 'mongoid'
+
+gem 'configatron'
+
+gem 'tophold_engine'
+
+gem 'sunspot'
+
+gem 'sunspot_cell'
+
+gem 'sunspot_mongoid'
+
+gem 'carrierwave-mongoid', :require => 'carrierwave/mongoid'

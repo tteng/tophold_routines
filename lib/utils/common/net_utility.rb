@@ -15,7 +15,6 @@ class NetUtility
         page = Nokogiri::HTML(a.get(url).body)
       rescue Exception => e
         STDOUT.puts "open #{url} failed caused by #{e.message}"
-        raise e
         try_count += 1 
         if try_count < max_try_count 
           sleep sleep_interval 

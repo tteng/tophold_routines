@@ -17,6 +17,7 @@ module TopholdRoutines
 
     # Custom directories with classes and modules you want to be autoloadable.
     config.autoload_paths += %W(
+      #{config.root}/lib
       #{config.root}/app/crawlers/proxies
       #{config.root}/lib/utils/common
     )
@@ -61,5 +62,12 @@ module TopholdRoutines
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
+
+    config.generators do |g|
+      g.orm             :active_record
+      g.template_engine :erb
+      g.test_framework  :test_unit
+    end
+
   end
 end

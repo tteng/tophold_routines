@@ -37,6 +37,7 @@ class Proxynova
   end
 
   def parse_each_row row, decode_cxt
+    p row.text
     children = row.search "td"
     ip_string = children[0].text
     unless ip_string.blank?
@@ -44,7 +45,8 @@ class Proxynova
     else
       return
     end
-    port, country =  children[1].text.strip, (children[5].text.split('-')[0].strip rescue nil)
+    port = children[1].text.strip rescue return
+    country = children[5].text.split('-')[0].strip rescue nil
     speed = children[3].inner_html =~ /data-percent=(.*)/ ? $1.gsub(/['"]/,'').to_i : 50
     STDOUT.puts({ip: ip, port: port, speed: speed, provider: country})
     HttpProxy.create({ip: ip, port: port, speed: speed, provider: country})

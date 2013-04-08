@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130222104501) do
+ActiveRecord::Schema.define(:version => 20130408070848) do
 
   create_table "activities", :force => true do |t|
     t.integer  "trackable_id"
@@ -93,12 +93,17 @@ ActiveRecord::Schema.define(:version => 20130222104501) do
   create_table "tags", :force => true do |t|
     t.string   "name"
     t.string   "ename"
-    t.datetime "created_at",                   :null => false
-    t.datetime "updated_at",                   :null => false
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
     t.string   "code"
     t.integer  "parent_id"
-    t.integer  "weibo_rank",  :default => 0
-    t.float    "weibo_score", :default => 0.0
+    t.integer  "weibo_rank",   :default => 0
+    t.float    "weibo_score",  :default => 0.0
+    t.integer  "google_rank",  :default => 0
+    t.integer  "google_score", :default => 0
+    t.integer  "cn21_rank",    :default => 0
+    t.integer  "cn21_score",   :default => 0
+    t.float    "final_score",  :default => 0.0
   end
 
   create_table "users", :force => true do |t|
